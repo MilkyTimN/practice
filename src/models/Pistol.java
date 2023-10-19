@@ -7,7 +7,9 @@ public class Pistol extends Gun {
     }
 
     public Pistol() {
-
+        System.out.println();
+        System.out.println();
+        System.out.println();
     }
 
 

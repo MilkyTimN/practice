@@ -13,6 +13,8 @@ public class Pistol extends Gun {
     }
 
 
+
+
     @Override
     public void makeBullets() {
 

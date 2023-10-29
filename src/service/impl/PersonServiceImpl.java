@@ -7,6 +7,7 @@ import repository.PersonRepository;
 import service.PersonService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +18,19 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void save(Person person) {
-
+        repository.save(person);
     }
 
     @Override
     public void saveAll(List<Person> people) {
+        for (Person person : people) {
+            save(person);
+        }
+    }
 
+    @Override
+    public List<Person> getAll() {
+        return repository.findBy();
     }
 
     @Override
@@ -42,12 +50,15 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void deleteAll(List<Person> peopleToDelete) {
-
+        for (Person person : peopleToDelete) {
+            delete(person);
+        }
     }
 
+    
     @Override
     public void delete(Person person) {
-
+        repository.delete(person);
     }
 
     @Override
@@ -68,7 +79,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<Person> sortByDateElder(LocalDate localDate, boolean isElder) {
 
-        List<Person> people = repository.getAll();
+        //getAll() вызывается из этого же класса (строка 30)
+        List<Person> people = getAll();
         List<Person> sorted = new ArrayList<>();
 
         for (Person person : people) {
@@ -90,7 +102,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> sortByFriendsCount(int count) {
-        List<Person> people = repository.getAll();
+        
+        //getAll() вызывается из этого же класса (строка 30)
+        List<Person> people = getAll();
         List<Person> sorted = new ArrayList<>();
 
         for (Person person : people) {
@@ -100,6 +114,20 @@ public class PersonServiceImpl implements PersonService {
         }
 
         return sorted;
+    }
+
+    @Override
+    public void changeBirthDate(String birthDate, Person person) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        LocalDate updatedBirthDate = LocalDate.parse(birthDate, formatter);
+
+        person.setBirthDate(updatedBirthDate);
+
+        //update(Person person) вызывается из этого же класса (строка 63)
+        update(person);
+        
+
     }
 }
 

@@ -9,20 +9,10 @@ import java.util.List;
 
 public interface PersonService {
 
-    //  save(),
-    //  saveAll()
-    //  findByGender(),
-    //  findStatus(),
-    //  findByName()
-    //  deleteAll()
-    //  delete()
-    //  update()
-    //  sortByDateElder()
-    //  sortByDateYounger()
-    //  sortByFriendsCount()
 
     void save(Person person);
     void saveAll(List<Person> people);
+    List<Person> getAll();
     List<Person> findByGender(Gender gender);
     List<Person> findByStatus(Status gender);
     Person findByName(String name);
@@ -31,5 +21,6 @@ public interface PersonService {
     void update(Person person);
     List<Person> sortByDateElder(LocalDate localDate, boolean isElder);
     List<Person> sortByFriendsCount(int count);
+    void changeBirthDate(String birthDate, Person person);
 
 }
